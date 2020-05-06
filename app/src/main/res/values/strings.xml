@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">BenchMe</string>
+    <string name="act_main_TV_logo">BenchMe</string>
+    <string name="act_main_TV_message">Are you ready to put your phone to a real test?</string>
+    <string name="act_main_BTN_start">Start benching</string>
+    <string name="act_results_TV_header">Results</string>
+    <string name="act_results_TV_device">Your device</string>
+    <string name="act_results_BTN_all_tests">See all tests</string>
+    <string name="act_fullResults_TV_header">Full Results</string>
+    <string name="act_fullResults_TV_CPU_header"><![CDATA[CPU Tests & Scores]]></string>
+    <string name="act_fullResults_TV_HDD_header"><![CDATA[HDD Tests & Scores]]></string>
+    <string name="act_fullResults_TV_RAM_header"><![CDATA[RAM Tests & Scores]]></string>
+    <string name="act_fullResults_BTN_device_info">See full device info</string>
+</resources>
