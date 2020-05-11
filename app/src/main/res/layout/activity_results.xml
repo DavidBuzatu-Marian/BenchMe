@@ -77,14 +77,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="CPU: Qualcomm Snapdragon
-855+"
+                android:text=""
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_OS" />
 
             <TextView
-                android:id="@+id/act_results_TV_device_cluster"
+                android:id="@+id/act_results_TV_device_CPU_cores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text=""
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_CPU" />
+
+            <TextView
+                android:id="@+id/act_results_TV_device_CPU_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -92,7 +102,7 @@
                 android:text="Cluster: 4 Cores @1.90GHz"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_CPU" />
+                app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_CPU_cores" />
 
             <TextView
                 android:id="@+id/act_results_TV_device_RAM"
@@ -103,7 +113,7 @@
                 android:text="RAM: 4GB"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_cluster" />
+                app:layout_constraintTop_toBottomOf="@id/act_results_TV_device_CPU_speed" />
 
             <TextView
                 android:id="@+id/act_results_TV_device_storage"
