@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.davidmarian_buzatu.benchme.R;
+import com.davidmarian_buzatu.benchme.benchmark.MemoryHandler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //TODO: SHOW DIALOG UNTIL BENCHMARK IS FINISHED
                 // BENCHMARKING
-
+                MemoryHandler memoryHandler = new MemoryHandler();
+                Log.d("TEST", String.valueOf(memoryHandler.allocateMemory(1024 * 1024 * 64)));
+                memoryHandler.close();
                 //TODO: STOP DIALOG
 
                 // REDIRECT
