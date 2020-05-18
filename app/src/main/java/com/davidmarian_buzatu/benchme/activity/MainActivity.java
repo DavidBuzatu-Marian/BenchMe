@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.davidmarian_buzatu.benchme.R;
-import com.davidmarian_buzatu.benchme.benchmark.MemoryHandler;
+import com.davidmarian_buzatu.benchme.tester.TestAtkin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,10 +27,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //TODO: SHOW DIALOG UNTIL BENCHMARK IS FINISHED
+                Log.d("ATKIN", "Score:" + TestAtkin.testAtkin());
                 // BENCHMARKING
-                MemoryHandler memoryHandler = new MemoryHandler();
-                Log.d("TEST", String.valueOf(memoryHandler.allocateMemory(1024 * 1024 * 64)));
-                memoryHandler.close();
+
                 //TODO: STOP DIALOG
 
                 // REDIRECT

@@ -47,5 +47,5 @@ public interface IBenchmark {
      * Return result of benchmark as String
      * uses parameter to switch between type
      */
-    String getResult(int type);
+    String getResult();
 }
