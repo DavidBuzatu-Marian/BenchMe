@@ -13,8 +13,10 @@ import android.widget.Button;
 
 import com.davidmarian_buzatu.benchme.R;
 import com.davidmarian_buzatu.benchme.services.DialogShow;
+import com.davidmarian_buzatu.benchme.tester.HDDTest;
 import com.davidmarian_buzatu.benchme.tester.MersenneTest;
 import com.davidmarian_buzatu.benchme.tester.AtkinTest;
+import com.davidmarian_buzatu.benchme.tester.RAMTest;
 import com.davidmarian_buzatu.benchme.tester.ThreadedRootsTest;
 
 import java.util.concurrent.ExecutorService;
@@ -41,7 +43,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final ProgressDialog dialog = DialogShow.getInstance().getDisplayDialog(context, R.string.act_main_dialog_message);
                 dialog.show();
-                ExecutorService executorService = Executors.newFixedThreadPool(4);
+                                ExecutorService executorService = Executors.newFixedThreadPool(4);
+                // RAM TEST
+                executorService.execute(getRAMRunnable(dialog));
+
+//                HDD TEST
+
+//                executorService.execute(getHDDRunnable(dialog));
 
 //                // Mersenne
 //                executorService.execute(getMersenneRunnable(dialog));
@@ -53,6 +61,41 @@ public class MainActivity extends AppCompatActivity {
 //                executorService.execute(getAtkinRunnable(dialog));
             }
         });
+    }
+
+    private Runnable getRAMRunnable(final ProgressDialog dialog) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                increaseWork();
+                Log.d("RESULT", "Score RAM " + RAMTest.testRAM());
+                decreaseWork();
+                if(workLeft == 0) {
+                    dialog.dismiss();
+                    redirectToResults();
+                }
+                Looper.loop();
+            }
+        };
+    }
+
+    private Runnable getHDDRunnable(final ProgressDialog dialog) {
+        final Context context = this;
+        return new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                increaseWork();
+                Log.d("RESULT", "Score HDD " + HDDTest.testHDD(context));
+                decreaseWork();
+                if(workLeft == 0) {
+                    dialog.dismiss();
+                    redirectToResults();
+                }
+                Looper.loop();
+            }
+        };
     }
 
     private Runnable getAtkinRunnable(final ProgressDialog dialog) {
