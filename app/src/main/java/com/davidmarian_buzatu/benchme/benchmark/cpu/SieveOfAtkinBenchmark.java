@@ -1,5 +1,7 @@
-package com.davidmarian_buzatu.benchme.benchmark;
+package com.davidmarian_buzatu.benchme.benchmark.cpu;
 
+
+import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
 
 import java.util.BitSet;
 

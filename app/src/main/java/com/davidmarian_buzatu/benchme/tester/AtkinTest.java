@@ -1,13 +1,12 @@
 package com.davidmarian_buzatu.benchme.tester;
 
 import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
-import com.davidmarian_buzatu.benchme.benchmark.SieveOfAtkinBenchmark;
-import com.davidmarian_buzatu.benchme.logging.ILogger;
+import com.davidmarian_buzatu.benchme.benchmark.cpu.SieveOfAtkinBenchmark;
 import com.davidmarian_buzatu.benchme.timing.ITimer;
 import com.davidmarian_buzatu.benchme.timing.TimeUnit;
 import com.davidmarian_buzatu.benchme.timing.Timer;
 
-public class TestAtkin {
+public class AtkinTest {
     public static double testAtkin() {
         ITimer timer = new Timer();
         IBenchmark bench = new SieveOfAtkinBenchmark();
