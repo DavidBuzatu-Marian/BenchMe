@@ -1,16 +1,25 @@
 package com.davidmarian_buzatu.benchme.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityManager;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.StatFs;
 import android.util.Log;
 import android.widget.TextView;
 
 import com.davidmarian_buzatu.benchme.R;
+import com.davidmarian_buzatu.benchme.model.Device;
+import com.davidmarian_buzatu.benchme.services.DialogShow;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,19 +33,45 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.davidmarian_buzatu.benchme.model.Device.ATKIN;
+import static com.davidmarian_buzatu.benchme.model.Device.CPU;
+import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
+import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
+import static com.davidmarian_buzatu.benchme.model.Device.HDD;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
+import static com.davidmarian_buzatu.benchme.model.Device.MERSENNE;
+import static com.davidmarian_buzatu.benchme.model.Device.MODEL;
+import static com.davidmarian_buzatu.benchme.model.Device.OS;
+import static com.davidmarian_buzatu.benchme.model.Device.RAM;
+import static com.davidmarian_buzatu.benchme.model.Device.RAMT;
+import static com.davidmarian_buzatu.benchme.model.Device.ROOTS;
+
 public class ResultsActivity extends AppCompatActivity {
     private int mNrCores;
+    private Map<String, String> infoMap = new HashMap<>();
+    private Bundle bundle;
+    private Device device = new Device();
+    private String infoCPU, infoCPUCores, infoCPUSpeed, infoRAM, infoHDD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        setInfoAboutPhone();
-        //TODO: get extras and show final result
+
+        final ProgressDialog dialog = DialogShow.getInstance().getDisplayDialog(this, R.string.act_result_dialog_message);
+        bundle = getIntent().getExtras();
+        if (bundle != null) {
+            device.setScoreMersenne((Double) bundle.get(MERSENNE));
+            device.setScoreAtkin((Double) bundle.get(ATKIN));
+            device.setScoreRoots((Double) bundle.get(ROOTS));
+            device.setScoreHDD((Double) bundle.get(HDDT));
+            device.setScoreRAM((Double) bundle.get(RAMT));
+        }
+        setInfoAboutPhone(dialog);
     }
 
-    private void setInfoAboutPhone() {
+    private void setInfoAboutPhone(ProgressDialog dialog) {
         TextView deviceModelTV = findViewById(R.id.act_results_TV_device_model);
         TextView deviceOSTV = findViewById(R.id.act_results_TV_device_OS);
         TextView deviceCPUTV = findViewById(R.id.act_results_TV_device_CPU);
@@ -45,30 +80,51 @@ public class ResultsActivity extends AppCompatActivity {
         TextView deviceRAM = findViewById(R.id.act_results_TV_device_RAM);
         TextView deviceHDD = findViewById(R.id.act_results_TV_device_storage);
 
+
         deviceModelTV.setText(new StringBuilder().append("Model: ").append(Build.DEVICE).toString());
         deviceOSTV.setText(new StringBuilder().append("OS: Android ").append(Build.VERSION.RELEASE).toString());
         try {
-            deviceCPUTV.setText(new StringBuilder().append("CPU: ").append(getCPUInfo()));
+            infoCPU = getCPUInfo();
+            deviceCPUTV.setText(new StringBuilder().append("CPU: ").append(infoCPU));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        deviceCPUCoresTV.setText(new StringBuilder().append("CPU type: ").append(getNrCores()));
-        deviceCPUSpeed.setText(new StringBuilder().append("CPU Speed: ").append(getMaxCPUFreqMHz()).append(" GHz"));
-        deviceRAM.setText(new StringBuilder().append("RAM: ").append(getMemorySizeHumanized()));
-        deviceHDD.setText(new StringBuilder().append("HDD Size: ").append(getHDDSize()).append(" GB"));
+        infoCPUCores = getNrCores();
+        deviceCPUCoresTV.setText(new StringBuilder().append("CPU type: ").append(infoCPUCores));
+
+        infoCPUSpeed = getMaxCPUFreqMHz() + "GHz";
+        deviceCPUSpeed.setText(new StringBuilder().append("CPU Speed: ").append(infoCPUSpeed));
+        infoRAM = getMemorySizeHumanized();
+        deviceRAM.setText(new StringBuilder().append("RAM: ").append(infoRAM));
+        infoHDD = getHDDSize() + " GB";
+        deviceHDD.setText(new StringBuilder().append("HDD Size: ").append(infoHDD));
+
+        setDeviceMap(infoCPU, infoCPUCores, infoCPUSpeed, infoRAM, infoHDD);
+        saveToFirebase(dialog);
+    }
+
+    private void setDeviceMap(String infoCPU, String infoCPUCores, String infoCPUSpeed, String infoRAM, String infoHDD) {
+        infoMap.put(MODEL, Build.DEVICE);
+        infoMap.put(OS, Build.VERSION.RELEASE);
+        infoMap.put(CPU, infoCPU);
+        infoMap.put(CPUCORES, infoCPUCores);
+
+        infoMap.put(CPUSPEED, infoCPUSpeed);
+        infoMap.put(RAM, infoRAM);
+        infoMap.put(HDD, infoHDD);
     }
 
     private String getHDDSize() {
         StatFs stat = new StatFs(Environment.getDataDirectory().getPath());
         long bytesAvailable = stat.getBlockSizeLong() * stat.getBlockCountLong();
         double gbAvailable = bytesAvailable / 1000000000.0;
-        if(gbAvailable > 0 && gbAvailable < 64) {
+        if (gbAvailable > 0 && gbAvailable < 64) {
             gbAvailable = 64.0;
-        } else if(gbAvailable > 64 && gbAvailable < 128) {
+        } else if (gbAvailable > 64 && gbAvailable < 128) {
             gbAvailable = 128.0;
-        } else if(gbAvailable > 128 && gbAvailable < 256) {
+        } else if (gbAvailable > 128 && gbAvailable < 256) {
             gbAvailable = 256.0;
-        } else if(gbAvailable > 256 && gbAvailable < 512) {
+        } else if (gbAvailable > 256 && gbAvailable < 512) {
             gbAvailable = 512.0;
         }
         return new DecimalFormat("#.##").format(gbAvailable);
@@ -122,7 +178,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private String getNrCores() {
         StringBuilder result = new StringBuilder();
-        switch(mNrCores) {
+        switch (mNrCores) {
             case 2:
                 result.append("Dual core");
                 break;
@@ -147,11 +203,11 @@ public class ResultsActivity extends AppCompatActivity {
         while ((str = br.readLine()) != null) {
             String[] data = str.trim().split(":");
             if (data.length > 1) {
-                if(data[0].contains("Processor")) {
+                if (data[0].contains("Processor")) {
                     cpuInfo.append(data[1]);
-                } else if(data[0].contains("processor")) {
+                } else if (data[0].contains("processor")) {
                     ++nrCPUs;
-                } else if(data[0].contains("Hardware")) {
+                } else if (data[0].contains("Hardware")) {
                     cpuInfo.append(" (").append(data[1]).append(")");
                 }
             }
@@ -167,17 +223,37 @@ public class ResultsActivity extends AppCompatActivity {
     private double getMaxCPUFreqMHz() {
         try {
 
-            RandomAccessFile reader = new RandomAccessFile( "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r" );
+            RandomAccessFile reader = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq", "r");
             String line = reader.readLine();
             NumberFormat fmt = NumberFormat.getNumberInstance();
             fmt.setMaximumFractionDigits(1);
             fmt.setRoundingMode(RoundingMode.CEILING);
 
             return Double.parseDouble(fmt.format(Double.parseDouble(line) / 1000000));
-        } catch ( IOException ex ) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
 
         return 0;
+    }
+
+    private void saveToFirebase(ProgressDialog dialog) {
+        setDeviceInfo();
+        FirebaseFirestore.getInstance().collection("devices").add(device).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void setDeviceInfo() {
+        device.setDeviceModel(infoMap.get(MODEL));
+        device.setDeviceOS(infoMap.get(OS));
+        device.setDeviceCPU(infoMap.get(CPU));
+        device.setDeviceCPUCores(infoMap.get(CPUCORES));
+        device.setDeviceCPUSpeed(infoMap.get(CPUSPEED));
+        device.setDeviceRAM(infoMap.get(RAM));
+        device.setDeviceHDD(infoMap.get(HDD));
     }
 }

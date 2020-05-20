@@ -1,5 +1,7 @@
 package com.davidmarian_buzatu.benchme.benchmark.ram.bench;
 
+import android.util.Log;
+
 import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
 import com.davidmarian_buzatu.benchme.benchmark.ram.status.BenchStatus;
 
@@ -26,14 +28,15 @@ public class RamBenchmark implements IBenchmark {
         Long testSize;
         Random r = new Random();
 
-        for (int i = 1; i <= iterations && status.getStatus(); i++) {
+        for (int i = 0; i <= iterations && status.getStatus(); i += 4) {
             IBenchmark bench = new AccessSpeedBenchmark();
-            testSize = i * (memSize / 100);
+            testSize = i != 0 ? i * (memSize / 128) : (memSize / 128);
             bench.initialize(testSize);
             ((AccessSpeedBenchmark) bench).getStatus().setScale(scale);
+            Log.d("RAM", "STARTING: " + i);
             bench.warmUp();
             bench.run(patterns[r.nextInt(10)]);
-            // System.out.println("Score : " + bench.getStatus().getScoreAverage());
+            Log.d("RAM", "Score2 : " + ((AccessSpeedBenchmark) bench).getStatus().getScoreAverage());
             status.addScoreAverage(((AccessSpeedBenchmark) bench).getStatus().getScoreAverage());
             bench.clean();
         }

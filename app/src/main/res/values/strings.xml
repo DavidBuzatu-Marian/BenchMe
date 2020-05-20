@@ -12,4 +12,5 @@
     <string name="act_fullResults_TV_RAM_header"><![CDATA[RAM Tests & Scores]]></string>
     <string name="act_fullResults_BTN_device_info">See full device info</string>
     <string name="act_main_dialog_message">Making your phone go over 9000</string>
+    <string name="act_result_dialog_message">Saving information</string>
 </resources>

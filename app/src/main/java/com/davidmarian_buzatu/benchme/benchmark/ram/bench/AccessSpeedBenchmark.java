@@ -13,7 +13,7 @@ import com.davidmarian_buzatu.benchme.timing.Timer;
 public class AccessSpeedBenchmark implements IBenchmark {
 
     private BenchStatus status;
-    private long blockSize;
+    private Long blockSize;
     private MemoryHandler mem;
     private byte patternByte;
     private int patternInt;
@@ -73,8 +73,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long rtime = timer.pause();
             readSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) rtime / 1000000000L);
             status.addScoreAverage(readSpeed);
-            Log.d("RAM", "Write time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
-            Log.d("RAM", "Write speed : " + readSpeed + " MB/S\n");
+            Log.d("RAM", "Read time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
+            Log.d("RAM", "Read speed : " + readSpeed + " MB/S\n");
             timer.resume();
 
         }
@@ -112,8 +112,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long rtime = timer.pause();
             readSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) rtime / 1000000000L);
             status.addScoreAverage(readSpeed);
-            Log.d("RAM", "Write time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
-            Log.d("RAM", "Write speed : " + readSpeed + " MB/S\n");
+            Log.d("RAM", "Read time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
+            Log.d("RAM", "Read speed : " + readSpeed + " MB/S\n");
             timer.resume();
 
         }
@@ -159,22 +159,23 @@ public class AccessSpeedBenchmark implements IBenchmark {
 
     @Override
     public void warmUp() {
-
+        Log.d("RAM", "TESTING");
         mem.allocateMemory(blockSize);
-
-        for (long i = 0; i < blockSize; i++) {
+        Log.d("RAM", "BLOCK ALLOCATED");
+        for (Long i = 0L; i < blockSize; i++) {
             mem.writeByte(i, patternByte);
         }
-
-        for (long i = 0; i < blockSize; i++) {
+        Log.d("RAM", "BLOCK ALLOCATED 1");
+        for (Long i = 0L; i < blockSize; i++) {
             mem.readByte(i);
         }
-
-        for (long i = 0; i < blockSize; i += 4) {
+        Log.d("RAM", "BLOCK ALLOCATED 2");
+        for (Long i = 0L; i < blockSize; i += 4) {
             mem.readInt(i);
         }
-
+        Log.d("RAM", "BLOCK ALLOCATED 3");
         mem.freeMemory();
+        Log.d("RAM", "BLOCK FREED");
     }
 
     public BenchStatus getStatus() {

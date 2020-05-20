@@ -10,7 +10,7 @@ public class BenchStatus {
     private int count;
     private double avScore;
 
-    public BenchStatus(){
+    public BenchStatus() {
         progression = 0;
         currentExecution = null;
         status = false;
@@ -23,6 +23,7 @@ public class BenchStatus {
 
     /**
      * Returns the progression of the benchmark in percentage
+     *
      * @return the progression
      */
     public synchronized double getProgression() {
@@ -38,6 +39,7 @@ public class BenchStatus {
 
     /**
      * Returns the currently executing task
+     *
      * @return the currentExecution
      */
     public synchronized String getCurrentExecution() {
@@ -53,6 +55,7 @@ public class BenchStatus {
 
     /**
      * Returns if the benchmark is still running or not
+     *
      * @return the status
      */
     public boolean getStatus() {
@@ -80,7 +83,7 @@ public class BenchStatus {
         this.score = score * scale;
     }
 
-    public synchronized void addScore(double score){
+    public synchronized void addScore(double score) {
         this.score += score * scale;
     }
 
@@ -98,13 +101,13 @@ public class BenchStatus {
         this.scale = scale;
     }
 
-    public void addScoreAverage(double score){
-        avScore += score*scale;
+    public void addScoreAverage(double score) {
+        avScore += score * scale;
         count++;
     }
 
-    public double getScoreAverage(){
-        return avScore/count;
+    public double getScoreAverage() {
+        return avScore / count;
     }
 
 }

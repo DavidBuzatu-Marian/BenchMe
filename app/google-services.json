@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "183006186293",
+    "firebase_url": "https://benchme-5465b.firebaseio.com",
+    "project_id": "benchme-5465b",
+    "storage_bucket": "benchme-5465b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183006186293:android:0809ee0402353603c05a7c",
+        "android_client_info": {
+          "package_name": "com.davidmarian_buzatu.benchme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183006186293-1pthe7cdbhhr5pmo7ivtvglr67roeaqv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.davidmarian_buzatu.benchme",
+            "certificate_hash": "f4c3814ffdd9a4eff0c334e643e5f99390da5596"
+          }
+        },
+        {
+          "client_id": "183006186293-9r38osmc47lkk6k2l0an1oa3i7uft322.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkzBrHtMQy0ec3PeBetME_n4nRQhctA9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183006186293-9r38osmc47lkk6k2l0an1oa3i7uft322.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

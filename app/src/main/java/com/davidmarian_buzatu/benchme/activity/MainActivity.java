@@ -1,5 +1,6 @@
 package com.davidmarian_buzatu.benchme.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -12,19 +13,40 @@ import android.view.View;
 import android.widget.Button;
 
 import com.davidmarian_buzatu.benchme.R;
+import com.davidmarian_buzatu.benchme.model.Device;
 import com.davidmarian_buzatu.benchme.services.DialogShow;
 import com.davidmarian_buzatu.benchme.tester.HDDTest;
 import com.davidmarian_buzatu.benchme.tester.MersenneTest;
 import com.davidmarian_buzatu.benchme.tester.AtkinTest;
 import com.davidmarian_buzatu.benchme.tester.RAMTest;
 import com.davidmarian_buzatu.benchme.tester.ThreadedRootsTest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.davidmarian_buzatu.benchme.model.Device.ATKIN;
+import static com.davidmarian_buzatu.benchme.model.Device.CPU;
+import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
+import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
+import static com.davidmarian_buzatu.benchme.model.Device.HDD;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
+import static com.davidmarian_buzatu.benchme.model.Device.MERSENNE;
+import static com.davidmarian_buzatu.benchme.model.Device.MODEL;
+import static com.davidmarian_buzatu.benchme.model.Device.OS;
+import static com.davidmarian_buzatu.benchme.model.Device.RAM;
+import static com.davidmarian_buzatu.benchme.model.Device.RAMT;
+import static com.davidmarian_buzatu.benchme.model.Device.ROOTS;
 
 public class MainActivity extends AppCompatActivity {
 
     private int workLeft = 0;
+    private Bundle bundle;
+    private int testsRun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final ProgressDialog dialog = DialogShow.getInstance().getDisplayDialog(context, R.string.act_main_dialog_message);
                 dialog.show();
-                                ExecutorService executorService = Executors.newFixedThreadPool(4);
+                ExecutorService executorService = Executors.newFixedThreadPool(4);
                 // RAM TEST
                 executorService.execute(getRAMRunnable(dialog));
 
@@ -59,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
 //
 //                // Atkin
 //                executorService.execute(getAtkinRunnable(dialog));
+
             }
         });
     }
@@ -69,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 increaseWork();
-                Log.d("RESULT", "Score RAM " + RAMTest.testRAM());
+                bundle.putDouble(RAMT, RAMTest.testRAM());
                 decreaseWork();
-                if(workLeft == 0) {
+                if (workLeft == 0) {
                     dialog.dismiss();
                     redirectToResults();
                 }
@@ -87,9 +110,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 increaseWork();
-                Log.d("RESULT", "Score HDD " + HDDTest.testHDD(context));
+                bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
                 decreaseWork();
-                if(workLeft == 0) {
+                if (workLeft == 0) {
                     dialog.dismiss();
                     redirectToResults();
                 }
@@ -104,9 +127,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 increaseWork();
-                Log.d("RESULT", "Score Atkin " + AtkinTest.testAtkin());
+                bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
                 decreaseWork();
-                if(workLeft == 0) {
+                if (workLeft == 0) {
                     dialog.dismiss();
                     redirectToResults();
                 }
@@ -116,16 +139,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private Runnable getMersenneRunnable(final ProgressDialog dialog) {
         return new Runnable() {
             @Override
             public void run() {
                 Looper.prepare();
                 increaseWork();
-                Log.d("RESULT", "Score Mersenne:" + MersenneTest.testMersenne());
+                bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
                 decreaseWork();
-                if(workLeft == 0) {
+                if (workLeft == 0) {
                     dialog.dismiss();
                     redirectToResults();
                 }
@@ -140,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 increaseWork();
-                Log.d("RESULT", "Score roots:" + ThreadedRootsTest.testThreadedRoots());
+                bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots());
                 decreaseWork();
-                if(workLeft == 0) {
+                if (workLeft == 0) {
                     dialog.dismiss();
                     redirectToResults();
                 }
@@ -157,11 +179,12 @@ public class MainActivity extends AppCompatActivity {
 
     private synchronized void decreaseWork() {
         --workLeft;
+        ++testsRun;
     }
 
     private void redirectToResults() {
         Intent activityResults = new Intent(this, ResultsActivity.class);
-        //TODO: Put results in extra
+        activityResults.putExtra("Bundle", bundle);
         startActivity(activityResults);
     }
 }

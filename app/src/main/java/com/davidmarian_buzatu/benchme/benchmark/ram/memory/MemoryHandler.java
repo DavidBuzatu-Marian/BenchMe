@@ -9,8 +9,8 @@ import java.lang.reflect.Field;
 public class MemoryHandler {
 
     private UnsafeAndroid unsafe;
-    private long memp;
-    private long size;
+    private Long memp;
+    private Long size;
 
     /**
      * Creates a new instance of MemoryHandler and initializes the unsafe instance;
@@ -22,7 +22,7 @@ public class MemoryHandler {
             e.printStackTrace();
             throw new RuntimeException("Unable to get unsafe!");
         }
-        memp = 0;
+        memp = null;
     }
 
     /**
@@ -32,10 +32,10 @@ public class MemoryHandler {
      * @param sizeInBytes
      * @return if the operation was successful or not
      */
-    public boolean allocateMemory(long sizeInBytes) {
+    public boolean allocateMemory(Long sizeInBytes) {
         size = sizeInBytes;
         try {
-            if (memp != 0)
+            if (memp != null)
                 unsafe.freeMemory(memp);
             memp = unsafe.allocateMemory(sizeInBytes);
         } catch (Exception e) {
@@ -48,16 +48,15 @@ public class MemoryHandler {
      * Deallocates the last allocated memory block.
      */
     public void freeMemory() {
-        if (memp != 0) {
+        if (memp != null) {
             unsafe.freeMemory(memp);
-            memp = 0;
+            memp = null;
         }
     }
 
-    public boolean writeByte(long addr, byte value) {
+    public boolean writeByte(Long addr, byte value) {
         try {
-            Byte[] bytes = new Byte[1];
-            unsafe.putByte(bytes, addr + memp, value);
+            unsafe.putByte(null, addr + memp, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -65,7 +64,7 @@ public class MemoryHandler {
         return true;
     }
 
-    public Byte readByte(long addr) {
+    public Byte readByte(Long addr) {
         try {
             return unsafe.getByte(addr + memp);
         } catch (Exception e) {
@@ -75,10 +74,9 @@ public class MemoryHandler {
     }
 
 
-    public boolean writeInt(long addr, int value) {
+    public boolean writeInt(Long addr, int value) {
         try {
-            Byte[] bytes = new Byte[1];
-            unsafe.putInt(bytes, addr + memp, value);
+            unsafe.putInt(null, addr + memp, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -87,7 +85,7 @@ public class MemoryHandler {
     }
 
 
-    public Integer readInt(long addr) {
+    public Integer readInt(Long addr) {
         try {
             return unsafe.getInt(addr + memp);
         } catch (Exception e) {
