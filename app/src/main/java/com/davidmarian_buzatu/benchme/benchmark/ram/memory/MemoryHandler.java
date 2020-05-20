@@ -56,7 +56,8 @@ public class MemoryHandler {
 
     public boolean writeByte(long addr, byte value) {
         try {
-            unsafe.putByte(null, addr + memp, value);
+            Byte[] bytes = new Byte[1];
+            unsafe.putByte(bytes, addr + memp, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -76,7 +77,8 @@ public class MemoryHandler {
 
     public boolean writeInt(long addr, int value) {
         try {
-            unsafe.putInt(null, addr + memp, value);
+            Byte[] bytes = new Byte[1];
+            unsafe.putInt(bytes, addr + memp, value);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
