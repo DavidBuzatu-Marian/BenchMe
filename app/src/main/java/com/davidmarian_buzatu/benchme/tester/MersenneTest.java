@@ -46,7 +46,6 @@ public class MersenneTest {
 
     private synchronized static void updateScore(double time, int i) {
         score += i / ((Math.log(time)) + 1);
-        Log.d("RESULTED", score + " i: " + i);
     }
 
     private synchronized static void increaseCnt() {

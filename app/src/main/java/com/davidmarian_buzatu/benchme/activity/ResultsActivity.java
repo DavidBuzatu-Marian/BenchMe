@@ -37,6 +37,7 @@ import static com.davidmarian_buzatu.benchme.model.Device.ATKIN;
 import static com.davidmarian_buzatu.benchme.model.Device.CPU;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
+import static com.davidmarian_buzatu.benchme.model.Device.HASH;
 import static com.davidmarian_buzatu.benchme.model.Device.HDD;
 import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
 import static com.davidmarian_buzatu.benchme.model.Device.MERSENNE;
@@ -67,6 +68,7 @@ public class ResultsActivity extends AppCompatActivity {
             device.setScoreRoots((Double) bundle.get(ROOTS));
             device.setScoreHDD((Double) bundle.get(HDDT));
             device.setScoreRAM((Double) bundle.get(RAMT));
+            device.setScoreHASH((Double) bundle.get(HASH));
         }
         setInfoAboutPhone(dialog);
     }

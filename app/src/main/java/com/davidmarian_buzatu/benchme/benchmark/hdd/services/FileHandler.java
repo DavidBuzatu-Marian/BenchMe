@@ -29,11 +29,6 @@ public class FileHandler {
                                   int minIndex, int maxIndex, long fileSize, boolean clean, String mode)
             throws IOException {
 
-        if (mode.equals("r")) {
-            Log.d("HDD", "Stream read benchmark with fixed file size");
-        } else {
-            Log.d("HDD", "Stream write benchmark with fixed file size");
-        }
         int currentBufferSize = MIN_BUFFER_SIZE;
         String fileName;
         int counter = 0;
@@ -42,7 +37,6 @@ public class FileHandler {
         while (currentBufferSize <= MAX_BUFFER_SIZE
                 && counter <= maxIndex - minIndex) {
             fileName = filePrefix + counter + fileSuffix;
-            Log.d("ERR", fileName);
             if (mode.equals("r")) {
                 readWithBufferSize(fileName, currentBufferSize, fileSize, clean);
             } else {
@@ -60,7 +54,6 @@ public class FileHandler {
                                     int minIndex, int maxIndex, int bufferSize, boolean clean, String mode)
             throws IOException {
 
-        Log.d("HDD", "Stream write benchmark with fixed buffer size");
         int currentFileSize = MIN_FILE_SIZE;
         String fileName;
         int counter = 0;
@@ -135,17 +128,6 @@ public class FileHandler {
         double megabytes = totalBytes / 1000000.0;
         double rate = megabytes / seconds;
 
-        if (mode.equals("r")) {
-            Log.d("HDD", "Done reading " + totalBytes + " bytes to file: "
-                    + fileName + " in " + nf.format(seconds) + " ms ("
-                    + nf.format(rate) + "MB/sec)" + " with a buffer size of "
-                    + myBufferSize / 1024 + " kB");
-        } else {
-            Log.d("HDD", "Done writing " + totalBytes + " bytes to file: "
-                    + fileName + " in " + nf.format(seconds) + " ms ("
-                    + nf.format(rate) + "MB/sec)" + " with a buffer size of "
-                    + myBufferSize / 1024 + " kB");
-        }
         benchScore += rate;
     }
 }

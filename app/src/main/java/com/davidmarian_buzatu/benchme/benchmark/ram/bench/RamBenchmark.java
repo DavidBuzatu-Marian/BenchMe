@@ -33,9 +33,7 @@ public class RamBenchmark implements IBenchmark {
             testSize = i * (memSize / 128);
             bench.initialize(testSize);
             ((AccessSpeedBenchmark) bench).getStatus().setScale(scale);
-            Log.d("RAM", "STARTING: " + i);
             bench.run(patterns[r.nextInt(10)]);
-            Log.d("RAM", "Score2 : " + ((AccessSpeedBenchmark) bench).getStatus().getScoreAverage());
             status.addScoreAverage(((AccessSpeedBenchmark) bench).getStatus().getScoreAverage());
             bench.clean();
         }

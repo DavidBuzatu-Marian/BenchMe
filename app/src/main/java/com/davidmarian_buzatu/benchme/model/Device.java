@@ -3,9 +3,9 @@ package com.davidmarian_buzatu.benchme.model;
 public class Device {
 
     public static final String MODEL = "MODEL", OS = "OS", CPU = "CPU", CPUCORES = "CPUCORES", CPUSPEED = "CPUSPEED", RAM = "RAM", HDD = "HDD";
-    public static final String ATKIN = "ATKIN", MERSENNE = "MERSENNE", ROOTS = "ROOTS", HDDT = "HDDT", RAMT = "RAMT", ID = "ID";
+    public static final String ATKIN = "ATKIN", MERSENNE = "MERSENNE", ROOTS = "ROOTS", HDDT = "HDDT", RAMT = "RAMT", ID = "ID", HASH = "HASH";
     private String deviceModel, deviceOS, deviceCPU, deviceCPUCores, deviceCPUSpeed, deviceRAM, deviceHDD, id;
-    private double scoreAtkin, scoreMersenne, scoreRoots, scoreHDD, scoreRAM;
+    private double scoreAtkin, scoreMersenne, scoreRoots, scoreHDD, scoreRAM, scoreHASH;
 
 
     public Device() {
@@ -124,5 +124,13 @@ public class Device {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public double getScoreHASH() {
+        return scoreHASH;
+    }
+
+    public void setScoreHASH(double scoreHASH) {
+        this.scoreHASH = scoreHASH;
     }
 }

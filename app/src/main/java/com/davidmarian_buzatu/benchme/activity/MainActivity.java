@@ -19,6 +19,8 @@ import com.davidmarian_buzatu.benchme.tester.HDDTest;
 import com.davidmarian_buzatu.benchme.tester.MersenneTest;
 import com.davidmarian_buzatu.benchme.tester.AtkinTest;
 import com.davidmarian_buzatu.benchme.tester.RAMTest;
+import com.davidmarian_buzatu.benchme.tester.TestRAM;
+import com.davidmarian_buzatu.benchme.tester.ThreadedHashingTest;
 import com.davidmarian_buzatu.benchme.tester.ThreadedRootsTest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -45,7 +47,7 @@ import static com.davidmarian_buzatu.benchme.model.Device.ROOTS;
 public class MainActivity extends AppCompatActivity {
 
     private int workLeft = 0;
-    private Bundle bundle;
+    private Bundle bundle = new Bundle();
     private int testsRun;
 
     @Override
@@ -69,21 +71,41 @@ public class MainActivity extends AppCompatActivity {
                 // RAM TEST
                 executorService.execute(getRAMRunnable(dialog));
 
-//                HDD TEST
-
+//                // HDD TEST
+//
 //                executorService.execute(getHDDRunnable(dialog));
-
+//
 //                // Mersenne
 //                executorService.execute(getMersenneRunnable(dialog));
-
+//
 //                // Threaded Roots
 //                executorService.execute(getThreadedRootsRunnable(dialog));
 //
 //                // Atkin
 //                executorService.execute(getAtkinRunnable(dialog));
+//
+//                // Hashing
+//                executorService.execute(getThreadedHashingRunnable(dialog));
 
             }
         });
+    }
+
+    private Runnable getThreadedHashingRunnable(ProgressDialog dialog) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                increaseWork();
+                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing());
+                decreaseWork();
+                if (workLeft == 0) {
+                    dialog.dismiss();
+                    redirectToResults();
+                }
+                Looper.loop();
+            }
+        };
     }
 
     private Runnable getRAMRunnable(final ProgressDialog dialog) {
@@ -94,10 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 increaseWork();
                 bundle.putDouble(RAMT, RAMTest.testRAM());
                 decreaseWork();
-                if (workLeft == 0) {
-                    dialog.dismiss();
-                    redirectToResults();
-                }
+//                if (workLeft == 0) {
+//                    dialog.dismiss();
+//                    redirectToResults();
+//                }
                 Looper.loop();
             }
         };

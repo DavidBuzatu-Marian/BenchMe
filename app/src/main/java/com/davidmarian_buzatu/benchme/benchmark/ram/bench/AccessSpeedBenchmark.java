@@ -54,8 +54,6 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long wtime = timer.pause();
             writeSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) wtime / 1000000000L);
             status.addScoreAverage(writeSpeed);
-            Log.d("RAM", "Write time for step " + step + " : " + TimeUnit.convertTime(wtime, TimeUnit.SEC));
-            Log.d("RAM", "Write speed : " + writeSpeed + " MB/S\n");
             timer.resume();
         }
         timer.pause();
@@ -73,8 +71,6 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long rtime = timer.pause();
             readSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) rtime / 1000000000L);
             status.addScoreAverage(readSpeed);
-            Log.d("RAM", "Read time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
-            Log.d("RAM", "Read speed : " + readSpeed + " MB/S\n");
             timer.resume();
 
         }
@@ -92,8 +88,6 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long wtime = timer.pause();
             writeSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) wtime / 1000000000L);
             status.addScoreAverage(writeSpeed);
-            Log.d("RAM", "Write time for step " + step + " : " + TimeUnit.convertTime(wtime, TimeUnit.SEC));
-            Log.d("RAM", "Write speed : " + writeSpeed + " MB/S\n");
             timer.resume();
         }
         timer.pause();
@@ -112,17 +106,12 @@ public class AccessSpeedBenchmark implements IBenchmark {
             long rtime = timer.pause();
             readSpeed = ((double) blockSize / RamBenchmark.MB) / ((double) rtime / 1000000000L);
             status.addScoreAverage(readSpeed);
-            Log.d("RAM", "Read time for step " + step + " : " + TimeUnit.convertTime(rtime, TimeUnit.SEC));
-            Log.d("RAM", "Read speed : " + readSpeed + " MB/S\n");
             timer.resume();
 
         }
         timer.pause();
 
         status.setCurrentExecution("Finished");
-
-        Log.d("RAM", "Faults found : " + faults + "\n");
-        Log.d("RAM", "\nScore : " + status.getScoreAverage() + "\n");
 
         status.setProgression(100);
         mem.freeMemory();
@@ -159,23 +148,18 @@ public class AccessSpeedBenchmark implements IBenchmark {
 
     @Override
     public void warmUp() {
-        Log.d("RAM", "TESTING");
         mem.allocateMemory(blockSize);
-        Log.d("RAM", "BLOCK ALLOCATED");
+
         for (long i = 0L; i < blockSize; i++) {
             mem.writeByte(i, patternByte);
         }
-        Log.d("RAM", "BLOCK ALLOCATED 1");
         for (long i = 0L; i < blockSize; i++) {
             mem.readByte(i);
         }
-        Log.d("RAM", "BLOCK ALLOCATED 2");
         for (long i = 0L; i < blockSize; i += 4) {
             mem.readInt(i);
         }
-        Log.d("RAM", "BLOCK ALLOCATED 3");
         mem.freeMemory();
-        Log.d("RAM", "BLOCK FREED");
     }
 
     public BenchStatus getStatus() {
