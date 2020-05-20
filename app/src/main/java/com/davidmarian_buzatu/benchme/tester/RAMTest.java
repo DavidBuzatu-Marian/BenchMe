@@ -8,7 +8,7 @@ public class RAMTest {
     public static double testRAM() {
         IBenchmark bench = new RamBenchmark();
 
-        bench.initialize(RamBenchmark.GB * 4, 40);
+        bench.initialize(RamBenchmark.GB * 1, 10);
         bench.run();
 
         return ((RamBenchmark) bench).getStatus().getScoreAverage();

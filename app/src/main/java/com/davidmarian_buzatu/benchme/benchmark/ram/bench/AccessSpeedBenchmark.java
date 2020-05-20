@@ -13,7 +13,7 @@ import com.davidmarian_buzatu.benchme.timing.Timer;
 public class AccessSpeedBenchmark implements IBenchmark {
 
     private BenchStatus status;
-    private Long blockSize;
+    private long blockSize;
     private MemoryHandler mem;
     private byte patternByte;
     private int patternInt;
@@ -45,8 +45,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
 
         timer.start();
 
-        for (int step = 1; step < blockSize / 65536 && status.getStatus(); step *= 2) {
-            for (int st = 0; st < step && status.getStatus(); st++) {
+        for (long step = 1; step < blockSize / 65536 && status.getStatus(); step *= 2) {
+            for (long st = 0; st < step && status.getStatus(); st++) {
                 for (long i = st; i < blockSize && status.getStatus(); i += step) {
                     mem.writeByte(i, patternByte);
                 }
@@ -64,8 +64,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
         int faults = 0;
 
         timer.resume();
-        for (int step = 1; step < blockSize / 65536 && status.getStatus(); step *= 2) {
-            for (int st = 0; st < step && status.getStatus(); st++) {
+        for (long step = 1; step < blockSize / 65536 && status.getStatus(); step *= 2) {
+            for (long st = 0; st < step && status.getStatus(); st++) {
                 for (long i = st; i < blockSize && status.getStatus(); i += step) {
                     mem.readByte(i);
                 }
@@ -83,8 +83,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
 
 
         timer.resume();
-        for (int step = 4; step < blockSize / 65536 && status.getStatus(); step *= 2) {
-            for (int st = 0; st < step && status.getStatus(); st += 4) {
+        for (long step = 4; step < blockSize / 65536 && status.getStatus(); step *= 2) {
+            for (long st = 0; st < step && status.getStatus(); st += 4) {
                 for (long i = st; i < blockSize && status.getStatus(); i += step) {
                     mem.writeInt(i, patternInt);
                 }
@@ -103,8 +103,8 @@ public class AccessSpeedBenchmark implements IBenchmark {
 
 
         timer.resume();
-        for (int step = 4; step < blockSize / 65536 && status.getStatus(); step *= 2) {
-            for (int st = 0; st < step && status.getStatus(); st += 4) {
+        for (long step = 4; step < blockSize / 65536 && status.getStatus(); step *= 2) {
+            for (long st = 0; st < step && status.getStatus(); st += 4) {
                 for (long i = st; i < blockSize && status.getStatus(); i += step) {
                     mem.readInt(i);
                 }
@@ -162,15 +162,15 @@ public class AccessSpeedBenchmark implements IBenchmark {
         Log.d("RAM", "TESTING");
         mem.allocateMemory(blockSize);
         Log.d("RAM", "BLOCK ALLOCATED");
-        for (Long i = 0L; i < blockSize; i++) {
+        for (long i = 0L; i < blockSize; i++) {
             mem.writeByte(i, patternByte);
         }
         Log.d("RAM", "BLOCK ALLOCATED 1");
-        for (Long i = 0L; i < blockSize; i++) {
+        for (long i = 0L; i < blockSize; i++) {
             mem.readByte(i);
         }
         Log.d("RAM", "BLOCK ALLOCATED 2");
-        for (Long i = 0L; i < blockSize; i += 4) {
+        for (long i = 0L; i < blockSize; i += 4) {
             mem.readInt(i);
         }
         Log.d("RAM", "BLOCK ALLOCATED 3");
