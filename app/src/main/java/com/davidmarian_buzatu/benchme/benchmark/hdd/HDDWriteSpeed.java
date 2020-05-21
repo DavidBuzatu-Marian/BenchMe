@@ -1,6 +1,7 @@
 package com.davidmarian_buzatu.benchme.benchmark.hdd;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
 import com.davidmarian_buzatu.benchme.benchmark.hdd.services.FileHandler;
@@ -11,6 +12,10 @@ import java.io.IOException;
 public class HDDWriteSpeed implements IBenchmark {
     private double result;
     private Context context;
+    private double maxReadSpeedFs;
+    private double maxReadSpeedFb;
+    private double maxWriteSpeedFs;
+    private double maxWriteSpeedFb;
 
     @Override
     public void initialize(Object... params) {
@@ -49,12 +54,16 @@ public class HDDWriteSpeed implements IBenchmark {
         if (mode.equals("r")) {
             try {
 
-                if (option.equals("fs"))
+                if (option.equals("fs")) {
                     result = handler.streamFixedSize(prefix, suffix, startIndex,
                             endIndex, fileSize, clean, mode);
-                else if (option.equals("fb"))
+                    maxReadSpeedFs = handler.getMaxSpeed();
+                }
+                else if (option.equals("fb")) {
                     result = handler.streamFixedBuffer(prefix, suffix, startIndex,
                             endIndex, bufferSize, clean, mode);
+                    maxReadSpeedFb = handler.getMaxSpeed();
+                }
                 else
                     throw new IllegalArgumentException("Argument "
                             + options[0].toString() + " is undefined");
@@ -64,12 +73,16 @@ public class HDDWriteSpeed implements IBenchmark {
         } else {
             try {
 
-                if (option.equals("fs"))
+                if (option.equals("fs")) {
                     result = handler.streamFixedSize(prefix, suffix, startIndex,
                             endIndex, fileSize, clean, mode);
-                else if (option.equals("fb"))
+                    maxWriteSpeedFs = handler.getMaxSpeed();
+                }
+                else if (option.equals("fb")) {
                     result = handler.streamFixedBuffer(prefix, suffix, startIndex,
                             endIndex, bufferSize, clean, mode);
+                    maxWriteSpeedFb = handler.getMaxSpeed();
+                }
                 else
                     throw new IllegalArgumentException("Argument "
                             + options[0].toString() + " is undefined");
@@ -91,5 +104,13 @@ public class HDDWriteSpeed implements IBenchmark {
 
     public String getResult() {
         return String.valueOf(result);
+    }
+
+    public double getMaxReadSpeed(){
+        return (maxReadSpeedFs>maxReadSpeedFb)? maxReadSpeedFs:maxReadSpeedFb;
+    }
+
+    public double getMaxWriteSpeed(){
+        return (maxWriteSpeedFs>maxWriteSpeedFb)?maxWriteSpeedFs:maxWriteSpeedFb;
     }
 }

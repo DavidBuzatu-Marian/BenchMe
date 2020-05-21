@@ -23,6 +23,7 @@ public class FileHandler {
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 512; // MB
     private Timer timer = new Timer();
     private double benchScore;
+    private double maxSpeed;
 
 
     public double streamFixedSize(String filePrefix, String fileSuffix,
@@ -33,6 +34,7 @@ public class FileHandler {
         String fileName;
         int counter = 0;
         benchScore = 0;
+        maxSpeed=0;
 
         while (currentBufferSize <= MAX_BUFFER_SIZE
                 && counter <= maxIndex - minIndex) {
@@ -127,7 +129,14 @@ public class FileHandler {
         double seconds = TimeUnit.convertTimeDouble(time, TimeUnit.SEC);
         double megabytes = totalBytes / 1000000.0;
         double rate = megabytes / seconds;
+        if(rate>maxSpeed){
+            maxSpeed=rate;
+        }
 
         benchScore += rate;
+    }
+
+    public double getMaxSpeed() {
+        return maxSpeed;
     }
 }

@@ -1,6 +1,7 @@
 package com.davidmarian_buzatu.benchme.tester;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
 import com.davidmarian_buzatu.benchme.benchmark.hdd.HDDWriteSpeed;
@@ -25,6 +26,7 @@ public class HDDTest {
         bench.run("fb", true, "r");
         scoreReadFb = compute_score(Double.parseDouble(((HDDWriteSpeed) bench).getResult()), reference);
         totalScore = ((scoreWriteFb + scoreWriteFs) * 4 / 5 + (scoreReadFb + scoreReadFs) * 1 / 5) / 4;
+        Log.d("MAX_SPEEEDS","MaxRead: "+((HDDWriteSpeed) bench).getMaxReadSpeed()+"MaxWrite: "+((HDDWriteSpeed) bench).getMaxWriteSpeed());
         return totalScore;
 
     }
