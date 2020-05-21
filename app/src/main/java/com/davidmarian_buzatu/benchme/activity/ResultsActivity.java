@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Looper;
 import android.os.StatFs;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.davidmarian_buzatu.benchme.R;
@@ -20,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -71,6 +75,20 @@ public class ResultsActivity extends AppCompatActivity {
             device.setScoreHASH((Double) bundle.get(HASH));
         }
         setInfoAboutPhone(dialog);
+        setBTNOnClick();
+    }
+
+    private void setBTNOnClick() {
+        Button fullResults = findViewById(R.id.act_results_BTN_all_tests);
+        fullResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent fullResIntent = new Intent(ResultsActivity.this, TestsResults.class);
+                Gson gson = new Gson();
+                fullResIntent.putExtra("Device", gson.toJson(device));
+                startActivity(fullResIntent);
+            }
+        });
     }
 
     private void setInfoAboutPhone(ProgressDialog dialog) {
