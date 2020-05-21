@@ -36,7 +36,9 @@ import static com.davidmarian_buzatu.benchme.model.Device.CPU;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
 import static com.davidmarian_buzatu.benchme.model.Device.HDD;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDR;
 import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDW;
 import static com.davidmarian_buzatu.benchme.model.Device.MERSENNE;
 import static com.davidmarian_buzatu.benchme.model.Device.MODEL;
 import static com.davidmarian_buzatu.benchme.model.Device.OS;
@@ -84,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 executorService.execute(getRAMRunnable(dialog));
 
                 // HDD TEST
-
                 executorService.execute(getHDDRunnable(dialog));
 
                 // Mersenne
@@ -108,9 +109,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing());
-                bundle.putDouble("HASH", 0.3);
-                Log.d("TEST", "TESTED_HASH" + workLeft);
+                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing() / 60.0);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -126,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble(RAMT, RAMTest.testRAM());
-                bundle.putDouble(RAMT, 0.6);
-                Log.d("TEST", "TESTED_RAM" + workLeft);
+                bundle.putDouble(RAMT, RAMTest.testRAM() / 50.0);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -145,9 +142,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
-                bundle.putDouble(HDDT, 0.34);
-                Log.d("TEST", "TESTED_HDD" + workLeft);
+                bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
+                bundle.putDouble(HDDW, HDDTest.getMaxWriteSpeed());
+                bundle.putDouble(HDDR, HDDTest.getMaxReadSpeed());
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -163,9 +160,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
-                bundle.putDouble(ATKIN, 0.3);
-                Log.d("TEST", "TESTED_ATKIN" + workLeft);
+                bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -182,9 +177,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
-                Log.d("TEST", "TESTED_MERSENNE" + workLeft);
-                bundle.putDouble(MERSENNE, 0.75);
+                bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -200,9 +193,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-//                bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots());
-                Log.d("TEST", "TESTED_ROOTS" + workLeft);
-                bundle.putDouble(ROOTS, 0.6);
+                bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots() / Math.pow(10, 8));
 
                 decreaseWork();
                 if (workLeft == 0) {

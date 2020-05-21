@@ -26,7 +26,7 @@ public class ThreadedRootsTest {
             timer.start();
             bench.run(i);
             long time = timer.stop();
-            score += (double) workload / Math.log((time / Math.pow(10, 9)) * i);
+            score += (double) workload / Math.log((time / Math.pow(10, 9)) * Math.log(i));
         }
         bench.clean();
 

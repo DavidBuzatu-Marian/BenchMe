@@ -43,7 +43,9 @@ import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
 import static com.davidmarian_buzatu.benchme.model.Device.HASH;
 import static com.davidmarian_buzatu.benchme.model.Device.HDD;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDR;
 import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
+import static com.davidmarian_buzatu.benchme.model.Device.HDDW;
 import static com.davidmarian_buzatu.benchme.model.Device.MERSENNE;
 import static com.davidmarian_buzatu.benchme.model.Device.MODEL;
 import static com.davidmarian_buzatu.benchme.model.Device.OS;
@@ -73,6 +75,8 @@ public class ResultsActivity extends AppCompatActivity {
             device.setScoreHDD((Double) bundle.get(HDDT));
             device.setScoreRAM((Double) bundle.get(RAMT));
             device.setScoreHASH((Double) bundle.get(HASH));
+            device.setHDDWriteSpeed((Double) bundle.get(HDDW));
+            device.setHDDReadSpeed((Double) bundle.get(HDDR));
         }
         setInfoAboutPhone(dialog);
         setBTNOnClick();
@@ -119,7 +123,7 @@ public class ResultsActivity extends AppCompatActivity {
         deviceRAM.setText(new StringBuilder().append("RAM: ").append(infoRAM));
         infoHDD = getHDDSize() + " GB";
         deviceHDD.setText(new StringBuilder().append("HDD Size: ").append(infoHDD));
-        deviceScore.setText(getScore(device) + "");
+        deviceScore.setText(String.format("%.2f", getScore(device)));
         setDeviceMap(infoCPU, infoCPUCores, infoCPUSpeed, infoRAM, infoHDD);
         saveToFirebase(dialog);
     }

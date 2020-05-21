@@ -15,6 +15,7 @@ import com.davidmarian_buzatu.benchme.services.DialogShow;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -61,6 +62,6 @@ public class RankingActivity extends AppCompatActivity {
     }
 
     private Task<QuerySnapshot> getDevices() {
-        return FirebaseFirestore.getInstance().collection("devices").get();
+        return FirebaseFirestore.getInstance().collection("devices").orderBy("score", Query.Direction.DESCENDING).get();
     }
 }

@@ -109,7 +109,7 @@ public class ListRankingAdapter extends RecyclerView.Adapter<ListRankingAdapter.
 
         private void setInfoInViews(Device device, Context context) {
             mDevicePosName.setText(new StringBuilder().append(mDataSet.indexOf(device) + 1).append(". ").append(device.getDeviceModel()).toString());
-            mDeviceScore.setText(new StringBuilder().append("Score: ").append(device.getScore()).toString());
+            mDeviceScore.setText(new StringBuilder().append("Score: ").append(String.format("%.2f", device.getScore())).toString());
             mDevice = device;
         }
 
@@ -144,12 +144,13 @@ public class ListRankingAdapter extends RecyclerView.Adapter<ListRankingAdapter.
         TextView cpuTV4 = inflatedView.findViewById(R.id.popup_device_TV_CPU_Test_4);
 
         TextView hddTV1 = inflatedView.findViewById(R.id.popup_device_TV_HDD_Test_1);
-        TextView hddRV2 = inflatedView.findViewById(R.id.popup_device_TV_HDD_Test_2);
-
+        TextView hddTV2 = inflatedView.findViewById(R.id.popup_device_TV_HDD_Test_2);
+        hddTV1.setText(new StringBuilder().append("HDD write speed: ").append(String.format("%.2f", device.getHDDWriteSpeed())).append(" (MB/s)").toString());
+        hddTV2.setText(new StringBuilder().append("HDD read speed: ").append(String.format("%.2f", device.getHDDReadSpeed())).append(" (MB/s)").toString());
         // Here we should put write and read speed for HDD
 
         TextView ramTV1 = inflatedView.findViewById(R.id.popup_device_TV_RAM_Test_1);
-
+        ramTV1.setText(new StringBuilder().append("RAM score: ").append(device.getScoreRAM()).toString());
         // Here we should pur write and read speed for RAM;
 
         cpuTV1.setText("Mersenne: " + device.getScoreMersenne());

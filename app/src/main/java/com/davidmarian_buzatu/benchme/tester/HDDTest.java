@@ -7,8 +7,18 @@ import com.davidmarian_buzatu.benchme.benchmark.IBenchmark;
 import com.davidmarian_buzatu.benchme.benchmark.hdd.HDDWriteSpeed;
 
 public class HDDTest {
+    private static IBenchmark bench;
+
+    public static double getMaxReadSpeed() {
+        return ((HDDWriteSpeed) bench).getMaxReadSpeed();
+    }
+
+    public static double getMaxWriteSpeed() {
+        return ((HDDWriteSpeed) bench).getMaxWriteSpeed();
+    }
+
     public static int testHDD(Context context) {
-        IBenchmark bench = new HDDWriteSpeed();
+        bench = new HDDWriteSpeed();
         final int reference = 650;
         int scoreWriteFs = 0;
         int scoreReadFs = 0;
@@ -26,12 +36,11 @@ public class HDDTest {
         bench.run("fb", true, "r");
         scoreReadFb = compute_score(Double.parseDouble(((HDDWriteSpeed) bench).getResult()), reference);
         totalScore = ((scoreWriteFb + scoreWriteFs) * 4 / 5 + (scoreReadFb + scoreReadFs) * 1 / 5) / 4;
-        Log.d("MAX_SPEEEDS","MaxRead: "+((HDDWriteSpeed) bench).getMaxReadSpeed()+"MaxWrite: "+((HDDWriteSpeed) bench).getMaxWriteSpeed());
         return totalScore;
 
     }
 
-    public static int compute_score(double speed, int reference) {
+    private static int compute_score(double speed, int reference) {
         return (int) (speed * 1000) / reference;
     }
 }
