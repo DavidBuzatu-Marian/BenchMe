@@ -209,17 +209,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_RAM_header" />
 
-                <TextView
-                    android:id="@+id/act_fullResults_TV_RAM_Test_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_RAM_Test_1" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

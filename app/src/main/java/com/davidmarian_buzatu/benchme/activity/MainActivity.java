@@ -56,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setButtonListener();
+        setRankingListener();
+    }
+
+    private void setRankingListener() {
+        Button rankingButton = findViewById(R.id.act_main_BTN_ranking);
+        rankingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent rankingIntent = new Intent(MainActivity.this, RankingActivity.class);
+                startActivity(rankingIntent);
+            }
+        });
     }
 
     private void setButtonListener() {

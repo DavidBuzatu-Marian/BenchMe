@@ -13,4 +13,11 @@
     <string name="act_fullResults_BTN_device_info">See full device info</string>
     <string name="act_main_dialog_message">Making your phone go over 9000</string>
     <string name="act_result_dialog_message">Saving information</string>
+    <string name="act_ranking_tv_header">Ranking</string>
+    <string name="adapter_listDevices_BTN_view">See full details</string>
+    <string name="act_main_BTN_ranking">Rankings</string>
+    <string name="act_ranking_dialog_message">Getting devices</string>
+    <string name="popup_device_TV_CPU_header">CPU Tests</string>
+    <string name="popup_device_TV_HDD_header">HDD Tests</string>
+    <string name="popup_device_TV_RAM_header">RAM Tests</string>
 </resources>

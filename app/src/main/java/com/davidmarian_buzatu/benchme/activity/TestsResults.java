@@ -33,7 +33,6 @@ public class TestsResults extends AppCompatActivity {
         // Here we should put write and read speed for HDD
 
         TextView ramTV1 = findViewById(R.id.act_fullResults_TV_RAM_Test_1);
-        TextView ramRV2 = findViewById(R.id.act_fullResults_TV_RAM_Test_2);
 
         // Here we should pur write and read speed for RAM;
 
