@@ -46,7 +46,7 @@ import static com.davidmarian_buzatu.benchme.model.Device.ROOTS;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int workLeft = 0;
+    private int workLeft = 6;
     private Bundle bundle = new Bundle();
     private int testsRun;
 
@@ -67,25 +67,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final ProgressDialog dialog = DialogShow.getInstance().getDisplayDialog(context, R.string.act_main_dialog_message);
                 dialog.show();
-                ExecutorService executorService = Executors.newFixedThreadPool(4);
+                ExecutorService executorService = Executors.newFixedThreadPool(8);
                 // RAM TEST
                 executorService.execute(getRAMRunnable(dialog));
 
-//                // HDD TEST
-//
-//                executorService.execute(getHDDRunnable(dialog));
-//
-//                // Mersenne
-//                executorService.execute(getMersenneRunnable(dialog));
-//
-//                // Threaded Roots
-//                executorService.execute(getThreadedRootsRunnable(dialog));
-//
-//                // Atkin
-//                executorService.execute(getAtkinRunnable(dialog));
-//
-//                // Hashing
-//                executorService.execute(getThreadedHashingRunnable(dialog));
+                // HDD TEST
+
+                executorService.execute(getHDDRunnable(dialog));
+
+                // Mersenne
+                executorService.execute(getMersenneRunnable(dialog));
+
+                // Threaded Roots
+                executorService.execute(getThreadedRootsRunnable(dialog));
+
+                // Atkin
+                executorService.execute(getAtkinRunnable(dialog));
+
+                // Hashing
+                executorService.execute(getThreadedHashingRunnable(dialog));
 
             }
         });
@@ -96,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing());
+//                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing());
+                bundle.putDouble("HASH", 0.3);
+                Log.d("TEST", "TESTED_HASH" + workLeft);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -113,13 +114,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble(RAMT, RAMTest.testRAM());
+//                bundle.putDouble(RAMT, RAMTest.testRAM());
+                bundle.putDouble(RAMT, 0.6);
+                Log.d("TEST", "TESTED_RAM" + workLeft);
                 decreaseWork();
-//                if (workLeft == 0) {
-//                    dialog.dismiss();
-//                    redirectToResults();
-//                }
+                if (workLeft == 0) {
+                    dialog.dismiss();
+                    redirectToResults();
+                }
                 Looper.loop();
             }
         };
@@ -131,8 +133,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
+//                bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
+                bundle.putDouble(HDDT, 0.34);
+                Log.d("TEST", "TESTED_HDD" + workLeft);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -148,8 +151,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
+//                bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
+                bundle.putDouble(ATKIN, 0.3);
+                Log.d("TEST", "TESTED_ATKIN" + workLeft);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -166,8 +170,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
+//                bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
+                Log.d("TEST", "TESTED_MERSENNE" + workLeft);
+                bundle.putDouble(MERSENNE, 0.75);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -183,8 +188,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                increaseWork();
-                bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots());
+//                bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots());
+                Log.d("TEST", "TESTED_ROOTS" + workLeft);
+                bundle.putDouble(ROOTS, 0.6);
+
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -195,9 +202,6 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    private synchronized void increaseWork() {
-        ++workLeft;
-    }
 
     private synchronized void decreaseWork() {
         --workLeft;

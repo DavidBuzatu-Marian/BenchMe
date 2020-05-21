@@ -5,7 +5,7 @@ public class Device {
     public static final String MODEL = "MODEL", OS = "OS", CPU = "CPU", CPUCORES = "CPUCORES", CPUSPEED = "CPUSPEED", RAM = "RAM", HDD = "HDD";
     public static final String ATKIN = "ATKIN", MERSENNE = "MERSENNE", ROOTS = "ROOTS", HDDT = "HDDT", RAMT = "RAMT", ID = "ID", HASH = "HASH";
     private String deviceModel, deviceOS, deviceCPU, deviceCPUCores, deviceCPUSpeed, deviceRAM, deviceHDD, id;
-    private double scoreAtkin, scoreMersenne, scoreRoots, scoreHDD, scoreRAM, scoreHASH;
+    private double scoreAtkin, scoreMersenne, scoreRoots, scoreHDD, scoreRAM, scoreHASH, score;
 
 
     public Device() {
@@ -132,5 +132,13 @@ public class Device {
 
     public void setScoreHASH(double scoreHASH) {
         this.scoreHASH = scoreHASH;
+    }
+
+    public void setScoreTotal(double score) {
+        this.score = score;
+    }
+
+    public double getScore() {
+        return score;
     }
 }

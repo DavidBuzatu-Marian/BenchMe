@@ -61,7 +61,7 @@ public class ResultsActivity extends AppCompatActivity {
 
 
         final ProgressDialog dialog = DialogShow.getInstance().getDisplayDialog(this, R.string.act_result_dialog_message);
-        bundle = getIntent().getExtras();
+        bundle = (Bundle) getIntent().getExtras().get("Bundle");
         if (bundle != null) {
             device.setScoreMersenne((Double) bundle.get(MERSENNE));
             device.setScoreAtkin((Double) bundle.get(ATKIN));
@@ -81,6 +81,7 @@ public class ResultsActivity extends AppCompatActivity {
         TextView deviceCPUSpeed = findViewById(R.id.act_results_TV_device_CPU_speed);
         TextView deviceRAM = findViewById(R.id.act_results_TV_device_RAM);
         TextView deviceHDD = findViewById(R.id.act_results_TV_device_storage);
+        TextView deviceScore = findViewById(R.id.act_results_TV_score_value);
 
 
         deviceModelTV.setText(new StringBuilder().append("Model: ").append(Build.DEVICE).toString());
@@ -100,9 +101,13 @@ public class ResultsActivity extends AppCompatActivity {
         deviceRAM.setText(new StringBuilder().append("RAM: ").append(infoRAM));
         infoHDD = getHDDSize() + " GB";
         deviceHDD.setText(new StringBuilder().append("HDD Size: ").append(infoHDD));
-
+        deviceScore.setText(getScore(device) + "");
         setDeviceMap(infoCPU, infoCPUCores, infoCPUSpeed, infoRAM, infoHDD);
         saveToFirebase(dialog);
+    }
+
+    private double getScore(Device device) {
+        return device.getScoreAtkin() + device.getScoreHASH() + device.getScoreHDD() + device.getScoreMersenne() + device.getScoreRAM() + device.getScoreRoots();
     }
 
     private void setDeviceMap(String infoCPU, String infoCPUCores, String infoCPUSpeed, String infoRAM, String infoHDD) {
@@ -257,5 +262,6 @@ public class ResultsActivity extends AppCompatActivity {
         device.setDeviceCPUSpeed(infoMap.get(CPUSPEED));
         device.setDeviceRAM(infoMap.get(RAM));
         device.setDeviceHDD(infoMap.get(HDD));
+        device.setScoreTotal(getScore(device));
     }
 }
