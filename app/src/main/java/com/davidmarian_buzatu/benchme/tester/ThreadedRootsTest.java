@@ -19,7 +19,7 @@ public class ThreadedRootsTest {
         int workload = (int) Math.pow(10, 4);
         bench.initialize(workload);
         bench.warmUp();
-        workload = (int) Math.pow(10, 8);
+        workload = (int) Math.pow(10, 7);
         bench.initialize(workload);
 
         for (int i = 1; i <= 32; i *= 2) {

@@ -35,6 +35,7 @@ import static com.davidmarian_buzatu.benchme.model.Device.ATKIN;
 import static com.davidmarian_buzatu.benchme.model.Device.CPU;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUCORES;
 import static com.davidmarian_buzatu.benchme.model.Device.CPUSPEED;
+import static com.davidmarian_buzatu.benchme.model.Device.HASH;
 import static com.davidmarian_buzatu.benchme.model.Device.HDD;
 import static com.davidmarian_buzatu.benchme.model.Device.HDDR;
 import static com.davidmarian_buzatu.benchme.model.Device.HDDT;
@@ -109,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Looper.prepare();
-                bundle.putDouble("HASH", ThreadedHashingTest.testThreadedHashing() / 60.0);
+                bundle.putDouble(HASH, ThreadedHashingTest.testThreadedHashing() / 60.0);
+//                bundle.putDouble(HASH, 4.0);
+                Log.d("TEST", HASH);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -126,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 bundle.putDouble(RAMT, RAMTest.testRAM() / 50.0);
+//                bundle.putDouble(RAMT, 0.0);
+                Log.d("TEST", RAMT);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -145,6 +150,10 @@ public class MainActivity extends AppCompatActivity {
                 bundle.putDouble(HDDT, HDDTest.testHDD(context) / 700.0);
                 bundle.putDouble(HDDW, HDDTest.getMaxWriteSpeed());
                 bundle.putDouble(HDDR, HDDTest.getMaxReadSpeed());
+//                bundle.putDouble(HDDT, 1.0);
+//                bundle.putDouble(HDDW, 2.3);
+//                bundle.putDouble(HDDR, 3.4);
+                Log.d("TEST", HDD);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -161,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 bundle.putDouble(ATKIN, AtkinTest.testAtkin() / 31.0);
+//                bundle.putDouble(ATKIN, 1.0);
+                Log.d("TEST", ATKIN);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -178,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 bundle.putDouble(MERSENNE, MersenneTest.testMersenne() / 4000.0);
+//                bundle.putDouble(MERSENNE,  0.2);
+                Log.d("TEST", MERSENNE);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();
@@ -194,7 +207,8 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 Looper.prepare();
                 bundle.putDouble(ROOTS, ThreadedRootsTest.testThreadedRoots() / Math.pow(10, 8));
-
+//                bundle.putDouble(ROOTS, 1.0);
+                Log.d("TEST", ROOTS);
                 decreaseWork();
                 if (workLeft == 0) {
                     dialog.dismiss();

@@ -258,7 +258,7 @@ public class ResultsActivity extends AppCompatActivity {
             fmt.setMaximumFractionDigits(1);
             fmt.setRoundingMode(RoundingMode.CEILING);
 
-            return Double.parseDouble(fmt.format(Double.parseDouble(line) / 1000000));
+            return Double.parseDouble(fmt.format(Double.parseDouble(line) / 1000000).replaceAll(",", "."));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
