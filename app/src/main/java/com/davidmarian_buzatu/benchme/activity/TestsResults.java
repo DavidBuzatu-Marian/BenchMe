@@ -22,27 +22,51 @@ public class TestsResults extends AppCompatActivity {
     }
 
     private void setInfoInView() {
+        setCPUTV();
+        setHDDTV();
+        setRAMTV();
+    }
+
+
+    private void setRAMTV() {
+        TextView ramHTV1 = findViewById(R.id.act_fullResults_TV_RAM_Test_1_header);
+        TextView ramTV1 = findViewById(R.id.act_fullResults_TV_RAM_Test_1);
+        ramHTV1.setText("RAM score: ");
+        ramTV1.setText(new StringBuilder().append(String.format("%.2f",device.getScoreRAM())));
+    }
+
+    private void setHDDTV() {
+        TextView hddHTV1 = findViewById(R.id.act_fullResults_TV_HDD_Test_1_header);
+        TextView hddHTV2 = findViewById(R.id.act_fullResults_TV_HDD_Test_2_header);
+
+        TextView hddTV1 = findViewById(R.id.act_fullResults_TV_HDD_Test_1);
+        TextView hddTV2 = findViewById(R.id.act_fullResults_TV_HDD_Test_2);
+
+        hddHTV1.setText("HDD write speed: ");
+        hddHTV2.setText("HDD read speed: ");
+
+        hddTV1.setText(new StringBuilder().append(String.format("%.2f", device.getHDDWriteSpeed())).append(" (MB/s)").toString());
+        hddTV2.setText(new StringBuilder().append(String.format("%.2f", device.getHDDReadSpeed())).append(" (MB/s)").toString());
+    }
+
+    private void setCPUTV() {
         TextView cpuTV1 = findViewById(R.id.act_fullResults_TV_CPU_Test_1);
         TextView cpuTV2 = findViewById(R.id.act_fullResults_TV_CPU_Test_2);
         TextView cpuTV3 = findViewById(R.id.act_fullResults_TV_CPU_Test_3);
         TextView cpuTV4 = findViewById(R.id.act_fullResults_TV_CPU_Test_4);
 
-        TextView hddTV1 = findViewById(R.id.act_fullResults_TV_HDD_Test_1);
-        TextView hddTV2 = findViewById(R.id.act_fullResults_TV_HDD_Test_2);
+        TextView cpuHTV1 = findViewById(R.id.act_fullResults_TV_CPU_Test_1_header);
+        TextView cpuHTV2 = findViewById(R.id.act_fullResults_TV_CPU_Test_2_header);
+        TextView cpuHTV3 = findViewById(R.id.act_fullResults_TV_CPU_Test_3_header);
+        TextView cpuHTV4 = findViewById(R.id.act_fullResults_TV_CPU_Test_4_header);
 
-        hddTV1.setText(new StringBuilder().append("HDD write speed: ").append(String.format("%.2f", device.getHDDWriteSpeed())).append(" (MB/s)").toString());
-        hddTV2.setText(new StringBuilder().append("HDD read speed: ").append(String.format("%.2f", device.getHDDReadSpeed())).append(" (MB/s)").toString());
-        // Here we should put write and read speed for HDD
-
-        TextView ramTV1 = findViewById(R.id.act_fullResults_TV_RAM_Test_1);
-        ramTV1.setText(new StringBuilder().append("RAM score: ").append(device.getScoreRAM()).toString());
-        // Here we should pur write and read speed for RAM;
-
-        cpuTV1.setText("Mersenne: " + device.getScoreMersenne());
-        cpuTV2.setText("Roots: " + device.getScoreRoots());
-        cpuTV3.setText("Hash: " + device.getScoreHASH());
-        cpuTV4.setText("Sieve Of Atkin: " + device.getScoreAtkin());
-
-
+        cpuHTV1.setText("Mersenne: ");
+        cpuTV1.setText(new StringBuilder().append(String.format("%.2f",device.getScoreMersenne())));
+        cpuHTV2.setText("Roots: ");
+        cpuTV2.setText(new StringBuilder().append(String.format("%.2f",device.getScoreRoots())));
+        cpuHTV3.setText("Hash: ");
+        cpuTV3.setText(new StringBuilder().append(String.format("%.2f",device.getScoreHASH())));
+        cpuHTV4.setText("Sieve of Atkin: ");
+        cpuTV4.setText(new StringBuilder().append(String.format("%.2f",device.getScoreAtkin())));
     }
 }

@@ -14,24 +14,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:drawableStart="@drawable/ic_business_and_finance"
-            android:drawablePadding="8dp"
-            android:fontFamily="@font/roboto_black"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/act_fullResults_TV_header"
             android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/act_fullResults_CV_CPU"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="64dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="32dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/act_fullResults_TV_header">
@@ -39,33 +37,59 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="24dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_CPU_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_chip"
+                    android:drawableStart="@drawable/ic_cpu"
                     android:drawablePadding="8dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
                     android:text="@string/act_fullResults_TV_CPU_header"
-                    android:textSize="18sp"
+                    android:textColor="@color/blue"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_CPU_Test_1_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_header" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_CPU_Test_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_CPU_Test_1_header"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_header" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_CPU_Test_2_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_header" />
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_1" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_CPU_Test_2"
@@ -74,10 +98,23 @@
 
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_CPU_Test_2_header"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_1" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_CPU_Test_3_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_1" />
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_2" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_CPU_Test_3"
@@ -86,10 +123,23 @@
 
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_CPU_Test_3_header"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_2" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_CPU_Test_4_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_2" />
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_3" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_CPU_Test_4"
@@ -98,9 +148,9 @@
 
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_CPU_Test_4_header"
                     app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_CPU_Test_3" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -109,11 +159,11 @@
             android:id="@+id/act_fullResults_CV_HDD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="64dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="32dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/act_fullResults_CV_CPU">
@@ -121,33 +171,59 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="24dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_HDD_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_computer"
+                    android:drawableStart="@drawable/ic_hard_disk"
                     android:drawablePadding="8dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
                     android:text="@string/act_fullResults_TV_HDD_header"
-                    android:textSize="18sp"
+                    android:textColor="@color/blue"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_HDD_Test_1_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_header" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_HDD_Test_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_HDD_Test_1_header"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_header" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_HDD_Test_2_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_header" />
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_Test_1_header" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_HDD_Test_2"
@@ -156,10 +232,10 @@
 
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_Test_1" />
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_HDD_Test_2_header"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_HDD_Test_1_header" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -169,11 +245,11 @@
             android:id="@+id/act_fullResults_CV_RAM"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="64dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="32dp"
+            android:layout_marginEnd="32dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/act_fullResults_CV_HDD">
@@ -181,8 +257,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="24dp"
-                android:paddingVertical="24dp">
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_RAM_header"
@@ -193,27 +268,38 @@
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"
                     android:text="@string/act_fullResults_TV_RAM_header"
-                    android:textSize="18sp"
+                    android:textColor="@color/blue"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/act_fullResults_TV_RAM_Test_1_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Strange test: "
+                    android:textColor="@color/violet"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_RAM_header" />
 
                 <TextView
                     android:id="@+id/act_fullResults_TV_RAM_Test_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Strange test: 1234"
+                    android:text="1234"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/act_fullResults_TV_RAM_Test_1_header"
                     app:layout_constraintTop_toBottomOf="@id/act_fullResults_TV_RAM_header" />
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

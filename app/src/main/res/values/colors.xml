@@ -9,4 +9,7 @@
     <color name="colorFirst">#EFC88B</color>
     <color name="colorSecond">#769FB6</color>
     <color name="colorThird">#A36A62</color>
+    <color name="colorButton">#828282</color>
+    <color name="blue">#339BF3</color>
+    <color name="violet">#9483CC</color>
 </resources>

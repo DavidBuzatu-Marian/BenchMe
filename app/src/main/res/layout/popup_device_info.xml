@@ -31,7 +31,7 @@
                     android:id="@+id/popup_device_TV_CPU_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_chip"
+                    android:drawableStart="@drawable/ic_cpu"
                     android:drawablePadding="8dp"
                     android:fontFamily="@font/roboto_regular"
                     android:gravity="center"

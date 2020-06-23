@@ -97,32 +97,49 @@ public class ResultsActivity extends AppCompatActivity {
 
     private void setInfoAboutPhone(ProgressDialog dialog) {
         TextView deviceModelTV = findViewById(R.id.act_results_TV_device_model);
+        TextView deviceModelHTV = findViewById(R.id.act_results_TV_device_model_header);
         TextView deviceOSTV = findViewById(R.id.act_results_TV_device_OS);
+        TextView deviceHOSTV = findViewById(R.id.act_results_TV_device_OS_header);
         TextView deviceCPUTV = findViewById(R.id.act_results_TV_device_CPU);
+        TextView deviceHCPUTV = findViewById(R.id.act_results_TV_device_CPU_header);
         TextView deviceCPUCoresTV = findViewById(R.id.act_results_TV_device_CPU_cores);
+        TextView deviceCHPUCoresTV = findViewById(R.id.act_results_TV_device_CPU_cores_header);
         TextView deviceCPUSpeed = findViewById(R.id.act_results_TV_device_CPU_speed);
+        TextView deviceHCPUSpeed = findViewById(R.id.act_results_TV_device_CPU_speed_header);
         TextView deviceRAM = findViewById(R.id.act_results_TV_device_RAM);
+        TextView deviceHRAM = findViewById(R.id.act_results_TV_device_RAM_header);
         TextView deviceHDD = findViewById(R.id.act_results_TV_device_storage);
+        TextView deviceHHDD = findViewById(R.id.act_results_TV_device_storage_header);
         TextView deviceScore = findViewById(R.id.act_results_TV_score_value);
 
 
-        deviceModelTV.setText(new StringBuilder().append("Model: ").append(Build.DEVICE).toString());
-        deviceOSTV.setText(new StringBuilder().append("OS: Android ").append(Build.VERSION.RELEASE).toString());
+
+
+        deviceModelTV.setText(new StringBuilder().append(Build.DEVICE).toString());
+        deviceModelHTV.setText("Model: ");
+        deviceHOSTV.setText("OS: Android ");
+        deviceOSTV.setText(new StringBuilder().append(Build.VERSION.RELEASE).toString());
         try {
             infoCPU = getCPUInfo();
-            deviceCPUTV.setText(new StringBuilder().append("CPU: ").append(infoCPU));
+            deviceHCPUTV.setText("CPU: ");
+            deviceCPUTV.setText(new StringBuilder().append(infoCPU));
         } catch (IOException e) {
             e.printStackTrace();
         }
         infoCPUCores = getNrCores();
-        deviceCPUCoresTV.setText(new StringBuilder().append("CPU type: ").append(infoCPUCores));
+        deviceCHPUCoresTV.setText("CPU type: ");
+        deviceCPUCoresTV.setText(new StringBuilder().append(infoCPUCores));
+
 
         infoCPUSpeed = getMaxCPUFreqMHz() + "GHz";
-        deviceCPUSpeed.setText(new StringBuilder().append("CPU Speed: ").append(infoCPUSpeed));
+        deviceHCPUSpeed.setText("CPU Speed: ");
+        deviceCPUSpeed.setText(new StringBuilder().append(infoCPUSpeed));
         infoRAM = getMemorySizeHumanized();
-        deviceRAM.setText(new StringBuilder().append("RAM: ").append(infoRAM));
+        deviceHRAM.setText("RAM: ");
+        deviceRAM.setText(new StringBuilder().append(infoRAM));
         infoHDD = getHDDSize() + " GB";
-        deviceHDD.setText(new StringBuilder().append("HDD Size: ").append(infoHDD));
+        deviceHHDD.setText("HDD Size: ");
+        deviceHDD.setText(new StringBuilder().append(infoHDD));
         deviceScore.setText(String.format("%.2f", getScore(device)));
         setDeviceMap(infoCPU, infoCPUCores, infoCPUSpeed, infoRAM, infoHDD);
         saveToFirebase(dialog);
