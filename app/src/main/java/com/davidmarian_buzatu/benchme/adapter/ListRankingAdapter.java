@@ -98,13 +98,6 @@ public class ListRankingAdapter extends RecyclerView.Adapter<ListRankingAdapter.
 
             mDevicePosName = itemView.findViewById(R.id.adapter_listDevices_TV_name);
             mDeviceScore = itemView.findViewById(R.id.adapter_listDevices_TV_score);
-            mButton = itemView.findViewById(R.id.adapter_listDevices_BTN_view);
-            mButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showPopUp(view, parent);
-                }
-            });
         }
 
         private void setInfoInViews(Device device, Context context) {
