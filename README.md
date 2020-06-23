@@ -3,10 +3,10 @@ A new way of benchmarking your Android phone. It contains tests for CPU, HDD and
 
 ## Images from the app
 <div>
-<img src="https://i.ibb.co/b2cVn41/1.jpg" width="200">
-<img src="https://i.ibb.co/t2kJJnn/2.jpg" width="200">
-<img src="https://i.ibb.co/9sdfFnj/3.jpg" width="200">
-<img src="https://i.ibb.co/ftkGTrz/4.jpg" width="200">
+<img src="https://i.ibb.co/GJ1bR0m/1.jpg" width="200">
+<img src="https://i.ibb.co/yQYTCfP/2.jpg" width="200">
+<img src="https://i.ibb.co/qFWDDqP/3.jpg" width="200">
+<img src="https://i.ibb.co/xDvN1t0/4.jpg" width="200">
 </div>
 
 ## Usage
